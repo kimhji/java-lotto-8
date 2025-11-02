@@ -20,6 +20,7 @@ public class Application {
             lottos[i] = new Lotto();
             lottos[i].print();
         }
+        System.out.println();
     }
 
     public static void getRanks(int[] ranks, Lotto[] lottos, Lotto rightLotto, int bonusNumber){
@@ -35,9 +36,11 @@ public class Application {
     }
 
     public static void printRanks(int[] ranks){
+        System.out.println("당첨 통계\r\n---");
         for(int i = 0;i<ranks.length;i++){
             System.out.println(getRankString(i+1)+ranks[i]+"개");
         }
+        System.out.println();
     }
 
     private static String getRankString(int rank){
@@ -64,5 +67,10 @@ public class Application {
         result += 50000*ranks[3];
         result += 5000*ranks[4];
         return result;
+    }
+
+    private static void printProfit(double profit){
+        System.out.println("총 수익률은 "+profit+"%입니다.");
+        System.out.println();
     }
 }
