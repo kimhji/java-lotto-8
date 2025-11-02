@@ -29,6 +29,7 @@ public class Application {
                 System.out.println("구입금액을 입력해 주세요.");
                 money = Integer.parseInt(Console.readLine());
                 buyLotto(lotto, money);
+                System.out.println();
                 break;
             }
             catch(NumberFormatException e){
@@ -122,6 +123,7 @@ public class Application {
                     numberList.add(Integer.parseInt(one));
                 }
                 rightLotto = new Lotto(numberList);
+                System.out.println();
                 break;
             }
             catch(NumberFormatException e){
@@ -146,6 +148,7 @@ public class Application {
                 }
                 bonusNumber = Integer.parseInt(line.trim());
                 Lotto.isValidLottoNumber(bonusNumber);
+                System.out.println();
                 break;
             }
             catch(NumberFormatException e){
