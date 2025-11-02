@@ -73,7 +73,7 @@ public class Application {
 
     private static void printRanks(int[] ranks){
         System.out.println("당첨 통계\r\n---");
-        for(int i = 0;i<ranks.length;i++){
+        for(int i = ranks.length-1;i>=0;i--){
             System.out.println(getRankString(i+1)+ranks[i]+"개");
         }
         System.out.println();
