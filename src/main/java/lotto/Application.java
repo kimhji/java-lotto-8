@@ -12,12 +12,21 @@ public class Application {
         Lotto rightLotto = getRightLottoPlusInput();
         int bonusNumber = getBonusNumberPlusInput();
 
+        int[] ranks = new int[boughtLottos.length];
+        getRanks(ranks, boughtLottos, rightLotto, bonusNumber);
+        printRanks(ranks);
+
+        long earnMoney = getEarnMoney(ranks);
+        double profit = getProfit((long)money, earnMoney);
+
+        printProfit(profit);
     }
 
     private static int buyLottoPlusInput(Lotto[] lotto){
         int money = 0;
         while (true) { 
             try{
+                System.out.println("구입금액을 입력해 주세요.");
                 money = Integer.parseInt(Console.readLine());
                 buyLotto(lotto, money);
                 break;
@@ -28,6 +37,7 @@ public class Application {
             catch(Exception e){
                 System.out.println(e.getMessage());
             }
+            System.out.println();
         }
         return money;
     }
@@ -101,6 +111,7 @@ public class Application {
         Lotto rightLotto = null;
         while (true) { 
             try{
+                System.out.println("당첨 번호를 입력해 주세요.");
                 List<Integer> numberList = new ArrayList<Integer>();
                 String line = Console.readLine();
                 if(line == null || line.isBlank()){
@@ -119,6 +130,7 @@ public class Application {
             catch(Exception e){
                 System.out.println(e.getMessage());
             }
+            System.out.println();
         }
         return rightLotto;
     }
@@ -127,6 +139,7 @@ public class Application {
         int bonusNumber = 0;
         while (true) { 
             try{
+                System.out.println("보너스 번호를 입력해 주세요.");
                 String line = Console.readLine();
                 if(line == null || line.isBlank()){
                     throw new IllegalArgumentException("[ERROR] 콤마로 구분된 당첨 번호 6개를 입력해주세요.");
@@ -141,6 +154,7 @@ public class Application {
             catch(Exception e){
                 System.out.println(e.getMessage());
             }
+            System.out.println();
         }
         return bonusNumber;
     }
