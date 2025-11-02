@@ -10,9 +10,11 @@ public class Application {
         int count = money/1000;
         if(count == 0) throw new IllegalArgumentException("[ERROR] 로또의 가격은 1000원입니다. 돈이 부족합니다.");
 
+        System.out.println(count+"개를 구매했습니다.");
         lottos = new Lotto[count];
         for(int i = 0;i<count;i++){
             lottos[i] = new Lotto();
+            lottos[i].print();
         }
     }
 }
