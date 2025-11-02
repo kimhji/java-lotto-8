@@ -1,15 +1,34 @@
 package lotto;
 
+import camp.nextstep.edu.missionutils.Console;
+
 public class Application {
     public static void main(String[] args) {
         Lotto[] boughtLottos = null;
-        int money = 0;
-        buyLotto(boughtLottos, money);
+        int money = buyLottoPlusInput(boughtLottos);
 
 
     }
 
-    public static void buyLotto(Lotto[] lottos, int money){
+    private static int buyLottoPlusInput(Lotto[] lotto){
+        int money = 0;
+        while (true) { 
+            try{
+                money = Integer.parseInt(Console.readLine());
+                buyLotto(lotto, money);
+                break;
+            }
+            catch(NumberFormatException e){
+                System.out.println("[ERROR] 숫자만 입력해주세요.");
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return money;
+    }
+
+    private static void buyLotto(Lotto[] lottos, int money){
         if(money%1000 != 0) throw new IllegalArgumentException("[ERROR] 로또의 가격은 1000원입니다. 잔돈은 제외하고 천 원 단위로 입력해주세요.");
         int count = money/1000;
         if(count == 0) throw new IllegalArgumentException("[ERROR] 로또의 가격은 1000원입니다. 돈이 부족합니다.");
