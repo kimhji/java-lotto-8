@@ -15,7 +15,23 @@
   - [x] 당첨 내역 출력
   - [x] 총 수익률 출력
 - [x] 에러 처리
-- [ ] 테스트 구현
+- [x] 테스트 구현
+
+### 테스트 콘솔 화면
+
+![alt text](image/image.png)
+
+![alt text](image/image1.png)
+
+![alt text](image/image2.png)
+
+![alt text](image/image3.png)
+
+![alt text](image/image4.png)
+
+![alt text](image/image5.png)
+
+![alt text](image/image6.png)
 
 ## 요구 사항
 
