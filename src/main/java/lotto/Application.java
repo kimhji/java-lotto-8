@@ -7,29 +7,29 @@ import camp.nextstep.edu.missionutils.Console;
 
 public class Application {
     public static void main(String[] args) {
-        Lotto[] boughtLottos = null;
-        int money = buyLottoPlusInput(boughtLottos);
+        Lotto[] boughtLottos = buyLottoPlusInput();
+        long money = boughtLottos.length*1000;
         Lotto rightLotto = getRightLottoPlusInput();
-        int bonusNumber = getBonusNumberPlusInput();
+        int bonusNumber = getBonusNumberPlusInput(rightLotto);
 
-        int[] ranks = new int[boughtLottos.length];
+        int[] ranks = new int[5];
         getRanks(ranks, boughtLottos, rightLotto, bonusNumber);
         printRanks(ranks);
 
         long earnMoney = getEarnMoney(ranks);
-        double profit = getProfit((long)money, earnMoney);
+        double profit = getProfit(money, earnMoney);
 
         printProfit(profit);
     }
 
-    private static int buyLottoPlusInput(Lotto[] lotto){
-        int money = 0;
+    private static Lotto[] buyLottoPlusInput(){
+        Lotto[] lottos = null;
         while (true) { 
             try{
                 System.out.println("구입금액을 입력해 주세요.");
-                money = Integer.parseInt(Console.readLine());
-                buyLotto(lotto, money);
+                int money = Integer.parseInt(Console.readLine());
                 System.out.println();
+                lottos = buyLotto(money);
                 break;
             }
             catch(NumberFormatException e){
@@ -40,10 +40,11 @@ public class Application {
             }
             System.out.println();
         }
-        return money;
+        return lottos;
     }
 
-    private static void buyLotto(Lotto[] lottos, int money){
+    private static Lotto[] buyLotto(int money){
+        Lotto[] lottos = null;
         if(money%1000 != 0) throw new IllegalArgumentException("[ERROR] 로또의 가격은 1000원입니다. 잔돈은 제외하고 천 원 단위로 입력해주세요.");
         int count = money/1000;
         if(count == 0) throw new IllegalArgumentException("[ERROR] 로또의 가격은 1000원입니다. 돈이 부족합니다.");
@@ -55,6 +56,7 @@ public class Application {
             lottos[i].print();
         }
         System.out.println();
+        return lottos;
     }
 
     private static void getRanks(int[] ranks, Lotto[] lottos, Lotto rightLotto, int bonusNumber){
@@ -137,7 +139,7 @@ public class Application {
         return rightLotto;
     }
 
-    private static int getBonusNumberPlusInput(){
+    private static int getBonusNumberPlusInput(Lotto rightLotto){
         int bonusNumber = 0;
         while (true) { 
             try{
@@ -148,6 +150,9 @@ public class Application {
                 }
                 bonusNumber = Integer.parseInt(line.trim());
                 Lotto.isValidLottoNumber(bonusNumber);
+                if(rightLotto.isIncludeNumber(bonusNumber)){
+                    throw new IllegalArgumentException("[ERROR] 이미 입력하신 당첨 번호와 중복될 수 없습니다.");
+                }
                 System.out.println();
                 break;
             }
