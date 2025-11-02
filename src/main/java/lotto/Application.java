@@ -1,12 +1,16 @@
 package lotto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import camp.nextstep.edu.missionutils.Console;
 
 public class Application {
     public static void main(String[] args) {
         Lotto[] boughtLottos = null;
         int money = buyLottoPlusInput(boughtLottos);
-
+        Lotto rightLotto = getRightLottoPlusInput();
+        int bonusNumber = getBonusNumberPlusInput();
 
     }
 
@@ -42,7 +46,7 @@ public class Application {
         System.out.println();
     }
 
-    public static void getRanks(int[] ranks, Lotto[] lottos, Lotto rightLotto, int bonusNumber){
+    private static void getRanks(int[] ranks, Lotto[] lottos, Lotto rightLotto, int bonusNumber){
         for(int i = 0;i<ranks.length;i++){
             ranks[i] = 0;
         }
@@ -54,7 +58,7 @@ public class Application {
         }
     }
 
-    public static void printRanks(int[] ranks){
+    private static void printRanks(int[] ranks){
         System.out.println("당첨 통계\r\n---");
         for(int i = 0;i<ranks.length;i++){
             System.out.println(getRankString(i+1)+ranks[i]+"개");
@@ -91,5 +95,53 @@ public class Application {
     private static void printProfit(double profit){
         System.out.println("총 수익률은 "+profit+"%입니다.");
         System.out.println();
+    }
+
+    private static Lotto getRightLottoPlusInput(){
+        Lotto rightLotto = null;
+        while (true) { 
+            try{
+                List<Integer> numberList = new ArrayList<Integer>();
+                String line = Console.readLine();
+                if(line == null || line.isBlank()){
+                    throw new IllegalArgumentException("[ERROR] 콤마로 구분된 당첨 번호 6개를 입력해주세요.");
+                }
+                String[] data = line.trim().split(",");
+                for(String one : data){
+                    numberList.add(Integer.parseInt(one));
+                }
+                rightLotto = new Lotto(numberList);
+                break;
+            }
+            catch(NumberFormatException e){
+                System.out.println("[ERROR] 숫자만 입력해주세요.");
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return rightLotto;
+    }
+
+    private static int getBonusNumberPlusInput(){
+        int bonusNumber = 0;
+        while (true) { 
+            try{
+                String line = Console.readLine();
+                if(line == null || line.isBlank()){
+                    throw new IllegalArgumentException("[ERROR] 콤마로 구분된 당첨 번호 6개를 입력해주세요.");
+                }
+                bonusNumber = Integer.parseInt(line.trim());
+                Lotto.isValidLottoNumber(bonusNumber);
+                break;
+            }
+            catch(NumberFormatException e){
+                System.out.println("[ERROR] 숫자만 입력해주세요.");
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return bonusNumber;
     }
 }
