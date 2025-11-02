@@ -48,4 +48,21 @@ public class Application {
         if(rank == 5) return "3개 일치 (5,000원) - ";
         throw new IllegalArgumentException("[ERROR] 잘못된 rank 값이 들어왔습니다.");
     }
+
+    private static double getProfit(long spent, long earn){
+        long tnsProp = earn*100 / spent;
+        if(tnsProp % 10 >= 5) tnsProp += 10;
+        tnsProp /= 10;
+        return ((double)tnsProp)/10;
+    }
+
+    private static long getEarnMoney(int[] ranks){
+        long result = 0;
+        result += 2000000000*ranks[0];
+        result += 30000000*ranks[1];
+        result += 1500000*ranks[2];
+        result += 50000*ranks[3];
+        result += 5000*ranks[4];
+        return result;
+    }
 }
